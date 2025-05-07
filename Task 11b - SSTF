@@ -1,0 +1,56 @@
+// Task  11b - SSTF
+#include <stdio.h>
+#include <limits.h>
+
+int absolute(int a, int b)
+{
+    return a-b < 0 ? b-a :a-b;
+}
+
+int main()
+{
+    int m,n,start,arr[50],count=0,i,j,done[50] = {0},x;
+
+    printf("\nEnter no of Cylinders: \n");
+    scanf("%d", &m);
+
+    printf("\nEnter no of Requests: \n");
+    scanf("%d", &n);
+
+    printf("\nEnter Head Movt pos: \n");
+    scanf("%d", &start);
+
+    printf("\nEnter the Request Queue: \n");
+    for(i = 0;i<n;i++)
+    {
+        scanf("%d", &arr[i]);
+        while(arr[i] >= m || arr[i] <0)
+        {
+            printf("\nInvalid Input Re-enter again: \n");
+            scanf("%d", &arr[i]);
+        }
+    }
+
+    x = start;
+    printf("\n SSTC: \t%d: ",x);
+
+    for(i = 0;i<n;i++)
+    {
+        int min = INT_MAX, pos = -1;
+        for(j = 0;j<n;j++)
+        {
+            if(!done[j] && absolute(x, arr[j])< min)
+            {
+                min = absolute(x, arr[j]);
+                pos = j;
+            }
+        }
+        done[pos] = 1;
+        count = count + min;
+        x = arr[pos];
+        printf("%d\t", x);
+    }
+    printf("\nNo of Head %d Cylinders: \n",count);
+    return 0;
+}
+
