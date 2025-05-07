@@ -1,0 +1,76 @@
+// Task 11C - SCAN
+#include <stdio.h>
+int absolute(int a, int b)
+{
+    return a-b >0 ? b-a : a-b;
+}
+
+void bubbleSort(int arr[], int n)
+{
+    int i, j,temp;
+    for(i = 0;i<n-1;i++)
+    {
+        for(j =0;j<n-i-1;j++)
+        {
+            if(arr[j] > arr[j+1])
+            {
+                temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
+}
+
+int main()
+{
+    int m,n,x, i, j, count =0, pos, arr[30], start;
+
+    printf("\nEnter the No of Cylinders: \n");
+    scanf("%d", &m);
+
+    printf("\nEnter no of Requests: \n");
+    scanf("%d", &n);
+
+    printf("\nEnter no of Head Pos Moves: \n");
+    scanf("%d", &start);
+
+    printf("\nEnter the Reference Queue: \n");
+    for(i = 0;i<n;i++)
+    {
+        scanf("%d", &arr[i]);
+        while(arr[i] >= m || arr[i] <0)
+        {
+            printf("\nInvalid Input Enter again\n");
+            scanf("%d", arr[i]);
+        }
+    }
+
+    bubbleSort(arr, n);
+    pos = 0;
+    while(pos < n && arr[pos] < start)
+        pos++;
+    x= start;
+
+    printf("\nSCAN ORDER: %d\t\n",x);
+
+    for(i = pos;i<n;i++)
+    {
+        count = count + absolute(x, arr[i]);
+        x = arr[i];
+        printf("%d\t", x);
+    }
+
+    count = count - absolute(x, m-1);
+    x = m -1;
+    printf("%d\t", x);
+
+    for(i = pos-1;i>=0;i--)
+    {
+        count = count + absolute(x, arr[i]);
+        x = arr[i];
+        printf("%d\t", x);
+    }
+    printf("\nNo of Head %d Cylinders: \n", count);
+    return 0;
+}
