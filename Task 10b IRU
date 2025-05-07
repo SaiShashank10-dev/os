@@ -1,80 +1,69 @@
-#include<stdio.h>
-int main()
-{
-int frames[10], temp[10], pages[10];
-int total_pages, m, n, position, k, l, total_frames;
-int a = 0, b = 0, page_fault = 0;
-printf("\nEnter Total Number of Frames:\t");
-scanf("%d", &total_frames);
-for(m = 0; m < total_frames; m++)
-{
-frames[m] = -1;
-}
-printf("Enter Total Number of Pages:\t");
-scanf("%d", &total_pages);
-printf("Enter Values for Reference String:\n");
-for(m = 0; m < total_pages; m++)
-{
-printf("Value No.[%d]:\t", m + 1);
-scanf("%d", &pages[m]);
-}
-for(n = 0; n < total_pages; n++)
-{
-a = 0, b = 0;
-for(m = 0; m < total_frames; m++)
+#include <stdio.h>
 
+void main()
 {
-if(frames[m] == pages[n])
-{
-a = 1;
-b = 1;
-break;
-}
-}
-if(a == 0)
-{
-for(m = 0; m < total_frames; m++)
-{
-if(frames[m] == -1)
-{
-frames[m] = pages[n];
-b = 1;
-break;
-}
-}
-}
-if(b == 0)
-{
-for(m = 0; m < total_frames; m++)
-{
-temp[m] = 0;
+    int frames[40], pages[50], temp[30];
+    int tp, tf, a , pf = 0, i, j, k ,l, pos;
 
-}
-for(k = n - 1, l = 1; l <= total_frames - 1; l++, k--)
-{
-for(m = 0; m < total_frames; m++)
-{
-if(frames[m] == pages[k])
-{
-temp[m] = 1;
-}
-}
-}
-for(m = 0; m < total_frames; m++)
-{
-if(temp[m] == 0)
-position = m;
-}
-frames[position] = pages[n];
-page_fault++;
-}
-printf("\n");
-for(m = 0; m < total_frames; m++)
-{
-printf("%d\t", frames[m]);
-}
-}
+    printf("\nEnter No of Pages: \n");
+    scanf("%d", &tp);
 
-printf("\nTotal Number of Page Faults:\t%d\n", page_fault);
-return 0;
+    printf("\nEnter No of Frames: \n");
+    scanf("%d", &tf);
+
+    printf("\nEnter the ref String: \n");
+    for(i = 0;i<tp;i++)
+    {
+        printf("\nPages: %d\n",i+1);
+        scanf("%d", &pages[i]);
+    }
+
+    for(j =0;j<tf;j++)
+        frames[i] = -1;
+    for(i = 0;i<tp;i++)
+    {
+        a=0;
+        for(j = 0;j<tf;j++)
+        {
+            if(frames[j] == pages[i])
+            {
+                a=1;
+                break;
+            }
+        }
+        if(a==0)
+        {
+            for(j =0;j<tf;j++)
+            {
+                if(frames[j] == -1)
+                {
+                    a=1;
+                    pf++;
+                    break;
+                }
+            }
+        }
+
+        if(a==0)
+        {
+            for(j =0;j<tf;j++)
+                temp[i] = 0;
+            for(k =i-1,l=1;l<tf;k--,l++)
+            {
+                if(frames[j] == pages[k])
+                    temp[j] = 1;
+            }
+            for(j=0;j<tf;j++)
+            {
+                if(frames[j] == 0)
+                    pos =j;
+            }
+            frames[pos] == pages[i];
+            pf++;
+        }
+        for(j=0;j<tf;j++)
+            printf("%d\t", frames[j]);
+        printf("\n");
+    }
+    printf("\nNo of Page Faults: %d\n", pf);
 }
