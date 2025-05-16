@@ -27,7 +27,7 @@ for(j=1;j<=nb;j++)
 if(bf[j]!=1)
 {
 temp=b[j]-f[i];
-if(temp>=0)
+if(temp>=0 && temp< lowest)
 {
 
 ff[i]=j;
@@ -40,6 +40,6 @@ bf[ff[i]]=1;
 lowest=10000;
 }
 printf("\nFile No \t File Size \t Block No \t Block Size \t fragment");
-for(i=1;i<=nf&&ff[i]!=0;i++)
-printf("\n %d \t %d \t %d \t %d \t %d",i,f[i],ff[i],b[ff[i]],frag[i]);
+for(i=1;i<=nf;i++)
+printf("\n %d \t\t %d \t\t %d \t\t %d \t\t %d",i,f[i],ff[i],b[ff[i]],frag[i]);
 }
